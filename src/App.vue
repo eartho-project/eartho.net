@@ -122,7 +122,7 @@ import { initFlowbite } from "flowbite";
 import { ref } from "vue";
 const stats = ref(null);
 function getMCStats() {
-    return fetch("https://api.mcsrvstat.us/2/play.eartho.net").then((response) =>
+    return fetch("https://api.mcstatus.io/v2/status/java/play.eartho.net").then((response) =>
         response.json()
     );
 }
@@ -130,6 +130,8 @@ function getMCStats() {
 onMounted(async () => {
     initFlowbite();
     stats.value = await getMCStats();
-    console.log(stats);
 });
+setInterval(async () => {
+    stats.value = await getMCStats();
+}, 10000);
 </script>
